@@ -11,7 +11,7 @@ Model name is converted to lowercase for the collection name:
 - BlogPost -> "blogs" collection
 """
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, HttpUrl
 from typing import Optional
 
 # Example schemas (replace with your own):
@@ -41,8 +41,10 @@ class Product(BaseModel):
 # Add your own schemas here:
 # --------------------------------------------------
 
-# Note: The Flames database viewer will automatically:
-# 1. Read these schemas from GET /schema endpoint
-# 2. Use them for document validation when creating/editing
-# 3. Handle all database operations (CRUD) directly
-# 4. You don't need to create any database endpoints!
+class Polaroidshare(BaseModel):
+    """
+    Publicly shared polaroid photos
+    Collection name: "polaroidshare"
+    """
+    image_data: str = Field(..., description="Base64-encoded image data (data URL)")
+    instagram_url: str = Field(..., description="Instagram profile URL or handle")
